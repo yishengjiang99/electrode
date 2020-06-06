@@ -11,6 +11,9 @@
   "keywords": [],
   "author": "Electrode <https://github.com/electrode-io/electrode>",
   "license": "Apache-2.0",
+  "dependencies": {
+    "@xarc/render-context": "^1.0.0"
+  },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/chai": "^4.2.11",
@@ -46,5 +49,10 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "fyn": {
+    "dependencies": {
+      "@xarc/render-context": "../xarc-render-context"
+    }
+  }
 }
