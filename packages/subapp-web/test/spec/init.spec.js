@@ -45,8 +45,7 @@ describe("init", function () {
     resetCdn();
     process.env.NODE_ENV = "production";
     const originalWd = process.cwd();
-    process.chdir(Path.join(__dirname, "../subapps"));
-    process.env.APP_SRC_DIR = "subapp1/..";
+    process.chdir(Path.join(__dirname, "../data/mock-app"));
 
     const initToken = init({
       routeOptions: {
