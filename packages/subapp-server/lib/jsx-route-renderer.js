@@ -33,10 +33,51 @@ async function start() {
     const chunkSelector = resolveChunkSelector(routeOptions);
     routeOptions.__internals = { chunkSelector };
     updateSubappPaths(routeOptions);
+    
+    const templateFile =
+      (routeOptions.templateFile && Path.resolve(routeOptions.templateFile)) ||
+      Path.join(__dirname, "../template/index");
+
+    const asyncTemplate = initializeTemplate(templateFile, routeOptions);
+    const asyncTemplate = initializeTemplate(defaultSelection, routeOptions);
+
+
     console.log("routeRenderer.....", routeRenderer);
   }
 }
+start();
 
+
+const Template = (
+    <IndexPage DOCTYPE="html">
+      <Token _id="INITIALIZE" />
+      <html lang="en">
+        <head>
+          <meta charset="UTF-8" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.11" />
+          <ReserveSpot saveId="headEntries" />
+          <Require _id="subapp-web/lib/polyfill" />
+          <Token _id="META_TAGS" />
+          <Token _id="PAGE_TITLE" />
+          <Require _id="subapp-web/lib/init" />
+  
+          <Token _id="CRITICAL_CSS" />
+        </head>
+        <Token _id="HEAD_CLOSED" />
+        <body>
+          <noscript>
+            <h4>JavaScript is Disabled</h4>
+            <p>Sorry, this webpage requires JavaScript to function correctly.</p>
+            <p>Please enable JavaScript in your browser and reload the page.</p>
+          </noscript>
+          <RenderSubApps />
+          <Require _id="subapp-web/lib/start" />
+        </body>
+        <Token _id="BODY_CLOSED" />
+      </html>
+      <Token _id="HTML_CLOSED" />
+    </IndexPage>
+  );
 function updateSubappPaths() {
   if (routeOptions.subApps) {
     routeOptions.__internals.subApps = [].concat(routeOptions.subApps).map(x => {
@@ -55,7 +96,65 @@ function updateSubappPaths() {
     });
   }
 }
-start();
+
+function resolveChunkSelector(options) {
+  if (options.bundleChunkSelector) {
+    return require(Path.resolve(options.bundleChunkSelector)); // eslint-disable-line
+  }
+
+  return () => ({
+    css: "main",
+    js: "main"
+  });
+}
+
+function makeRouteHandler(routeOptions) {
+  routeOptions._templateCache = {};
+  let defaultSelection;
+
+  if (routeOptions.templateFile) {
+    defaultSelection = {
+      templateFile:
+        typeof routeOptions.templateFile === "string"
+          ? Path.resolve(routeOptions.templateFile)
+          : Path.join(__dirname, "../template/index")
+    };
+  } else {
+    defaultSelection = { htmlFile: routeOptions.htmlFile };
+  }
+
+  const render = (options, templateSelection) => {
+    let selection = templateSelection || defaultSelection;
+    if (templateSelection && !templateSelection.templateFile && !templateSelection.htmlFile) {
+      selection = Object.assign({}, templateSelection, defaultSelection);
+    }
+    const asyncTemplate = initializeTemplate(selection, routeOptions);
+    return asyncTemplate.render(options);
+  };
+
+  return options => {
+    // if (routeOptions.selectTemplate) {
+    //   const selection = routeOptions.selectTemplate(options.request, routeOptions);
+
+    //   if (selection && selection.then) {
+    //     return selection.then(x => render(options, x));
+    //   }
+
+    //   return render(options, selection);
+    // }
+    const templateFile =
+      (routeOptions.templateFile && Path.resolve(routeOptions.templateFile)) ||
+      Path.join(__dirname, "../template/index");
+
+
+      function initializeTemplate(
+        { htmlFile, templateFile, tokenHandlers, cacheId, cacheKey, options },
+        routeOptions
+      ) {
+
+      return asyncTemplate.render(options);
+  };
+}
 
 // function routeRender(srcDir, topOpts) {
 //   updateFullTemplate(srcDir, routeOptions);
