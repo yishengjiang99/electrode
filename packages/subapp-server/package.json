@@ -45,7 +45,8 @@
     "electrode-server": "^3.0.0",
     "run-verify": "^1.1.2",
     "@xarc/fastify-server": "^1.1.0",
-    "@xarc/jsx-renderer": "file: ../xarc-jsx-renderer"
+    "@xarc/jsx-renderer": "file: ../xarc-jsx-renderer",
+    "@xarc/jsx-token-handlers": "file:../xarc-jsx-token-handlers"
   },
   "fyn": {
     "dependencies": {

@@ -15,9 +15,10 @@ const Boom = require("@hapi/boom");
 const HttpStatus = require("./http-status");
 const readFile = util.promisify(Fs.readFile);
 const xaa = require("xaa");
-const { ReactWebapp } = require("electrode-react-webapp");
+// const { ReactWebapp } = require("electrode-react-webapp");
 const subAppUtil = require("subapp-util");
 const registerRoutes = require("./register-routes");
+const jsxRouteRend = require("./jsx-router-renderer");
 
 const {
   errorResponse,
@@ -122,10 +123,7 @@ function setupRouteRender({ subAppsByPath, srcDir, routeOptions }) {
   }
 
   // const useStream = routeOptions.useStream !== false;
-
-  const routeHandler = ReactWebapp.makeRouteHandler(routeOptions);
-
-  return routeHandler;
+  return jsxRouteRend(routeOptions);
 }
 
 async function registerHapiRoutes({ server, srcDir, routes, topOpts }) {
