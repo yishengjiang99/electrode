@@ -519,3 +519,4 @@ fyn-lock.yaml
 package-lock.json
 yarn.lock
 
+packages/subapp-server/app6/

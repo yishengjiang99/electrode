@@ -8,6 +8,7 @@ describe("react-webapp", function() {
   describe("resolveContent", function() {
     it("should require module with relative path", () => {
       const f = "./test/data/foo.js";
+      const webApp = new webApp({});
       expect(reactWebapp.resolveContent({ module: f }).content).to.equal("hello");
     });
 

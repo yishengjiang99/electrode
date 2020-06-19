@@ -35,7 +35,7 @@
 
     defer() {
       const defer = {};
-      defer.promise = new Promise((resolve, reject) => {
+      defer.promise = new Promise((npmolve, reject) => {
         defer.resolve = resolve;
         defer.reject = reject;
         defer.done = (err, result) => {
