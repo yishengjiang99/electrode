@@ -18,7 +18,7 @@ const xaa = require("xaa");
 // const { ReactWebapp } = require("electrode-react-webapp");
 const subAppUtil = require("subapp-util");
 const registerRoutes = require("./register-routes");
-const WebApp = require("@xarc/web-app");
+const WebApp = require("@xarc/webapp");
 
 const {
   errorResponse,
@@ -123,7 +123,6 @@ function setupRouteRender({ subAppsByPath, srcDir, routeOptions }) {
   }
 
   // const useStream = routeOptions.useStream !== false;
-debugger;
   const routeHandler = WebApp.makeRouteHanlder(routeOptions);
 
   return routeHandler;
