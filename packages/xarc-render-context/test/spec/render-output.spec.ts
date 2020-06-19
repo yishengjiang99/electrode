@@ -224,7 +224,11 @@ describe("render-output", function () {
     try {
       await ro2._finish();
     } catch (e) {
+<<<<<<< HEAD
       expect(e.message).to.equal("new error2");
+=======
+      expect(e.message).to.equal("new Error2");
+>>>>>>> 32715b37... save prog on unit tests
     }
   });
 });

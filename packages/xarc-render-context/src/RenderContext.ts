@@ -5,7 +5,7 @@
 /* eslint-disable comma-dangle, arrow-parens, filenames/match-regex, no-magic-numbers */
 
 import { RenderOutput } from "./RenderOutput";
-import Munchy from "munchy";
+import * as Munchy from "munchy";
 
 const munchyHandleStreamError = err => {
   let errMsg = (process.env.NODE_ENV !== "production" && err.stack) || err.message;

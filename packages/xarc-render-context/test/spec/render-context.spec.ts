@@ -44,6 +44,7 @@ describe("munchy output", function () {
     ro.add("foo");
     ro.flush();
   });
+<<<<<<< HEAD
   it.skip("should return error message", function () {
     process.env.NODE_ENV = "production";
     context.setMunchyOutput();
@@ -54,13 +55,32 @@ describe("munchy output", function () {
     process.env.NODE_ENV = "development";
     // const { result } = munchyHandleStreamError(new Error("e"));
     // expect(result).to.contain("CWD");
+=======
+  it("should return error message", function () {
+    process.env.NODE_ENV = "production";
+    const { result } = munchyHandleStreamError(new Error("Error1"));
+    expect(result).to.contain("Error1");
+
+    const output = munchyHandleStreamError(new Error());
+    expect(output.result).to.contain("SSR ERROR");
+  });
+  it("should return stack trace on non-production", function () {
+    process.env.NODE_ENV = "development";
+    const { result } = munchyHandleStreamError(new Error("e"));
+    expect(result).to.contain("CWD");
+>>>>>>> 32715b37... save prog on unit tests
   });
   it("not replace process.cwd() with CWD", function () {
     process.chdir("/");
     process.env.NODE_ENV = "development";
 
+<<<<<<< HEAD
     // const { result } = munchyHandleStreamError(new Error("e"));
     // expect(result).to.not.contain("CWD");
+=======
+    const { result } = munchyHandleStreamError(new Error("e"));
+    expect(result).to.not.contain("CWD");
+>>>>>>> 32715b37... save prog on unit tests
   });
 
   it("should store token handlers in a map", function () {
@@ -153,7 +173,10 @@ describe("token handler in render context", function () {
       expect(err).to.be.undefined;
     });
     expect(received).to.equal("hello world");
+<<<<<<< HEAD
     expect(context.transform("s")).to.equal("s");
+=======
+>>>>>>> 32715b37... save prog on unit tests
   });
 
   it("should handle token results with readable stream as input", function () {

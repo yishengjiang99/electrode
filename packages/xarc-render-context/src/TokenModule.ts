@@ -48,6 +48,8 @@ export class TokenModule {
     if (!this.isModule || this.custom !== undefined) return;
     let tokenMod = viewTokenModules[this.id];
 
+    console.log(tokenMod);
+
     if (tokenMod === undefined) {
       if (this._modCall) {
         tokenMod = loadTokenModuleHandler(this.modPath, this[TEMPLATE_DIR], this._modCall[0]);
@@ -75,6 +77,10 @@ export class TokenModule {
       this.custom && this.custom.process,
       `custom token ${this.id} module doesn't have process method`
     );
+<<<<<<< HEAD
+=======
+    console.log(".. viewTokenModules", viewTokenModules);
+>>>>>>> 32715b37... save prog on unit tests
     // if process function takes more than one params, then it should take a
     // next callback so it can do async work, and call next after that's done.
     this.wantsNext = this.custom.process.length > 1;
