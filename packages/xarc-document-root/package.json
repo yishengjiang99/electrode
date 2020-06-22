@@ -1,0 +1,16 @@
+{
+  "name": "@xarc/document-root",
+  "version": "1.0.0",
+  "description": "server side renders documents in a folder.",
+  "main": "index.html",
+  "scripts": {
+    "test": "test.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@xarc/app": "^8.1.6",
+    "@xarc/create-app": "^3.0.7",
+    "@xarc/webapp": "0,0.1"
+  }
+}

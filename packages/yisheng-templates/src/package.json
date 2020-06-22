@@ -1,0 +1,12 @@
+{
+  "name": "lib",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Bus.js",
+  "scripts": {
+    "testbus": "npx mocha -c test/spec/bus.spec.js",
+    "test": "npx mocha -c test/spec/*"
+  },
+  "author": "",
+  "license": "ISC"
+}
