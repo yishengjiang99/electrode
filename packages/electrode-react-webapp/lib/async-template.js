@@ -78,7 +78,7 @@ class AsyncTemplate {
   render(options) {
     const context = new RenderContext(options, this);
 
-    return Promise.each(this._beforeRenders, r => r.beforeRender(context))
+    return Promise.each(this._beforeRenders, (r: any) => r.beforeRender(context))
       .then(() => {
         return this._renderer.render(context);
       })
