@@ -71,7 +71,7 @@ export class SimpleRenderer {
     this._initializeTemplate(options.htmlFile);
   }
 
-  initializeRenderer(reset) {
+  initializeRenderer(reset = !this._renderer) {
     if (reset || !this._renderer) {
       this._initializeTokenHandlers(this._tokenHandlers);
       this._applyTokenLoad();
@@ -93,11 +93,6 @@ export class SimpleRenderer {
 
   render(options) {
     const { context } = options;
-
-    // static each<R>(
-    //   values: Resolvable<Iterable<Resolvable<R>>>,
-    //   iterator: IterateFunction<R, any>
-    // ): Bluebird<R[]>;
 
     return Promise.each(this._beforeRenders, r => r.beforeRender(context))
       .then(() => {

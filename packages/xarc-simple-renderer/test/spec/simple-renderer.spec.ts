@@ -8,6 +8,8 @@ import {
 import { expect } from "chai";
 import { SimpleRenderer } from "../../src/simple-renderer";
 // const { SimpleRenderer } = require("../../src/simple-renderer");
+import * as Path from "path";
+import * as Fs from "fs";
 describe("simple renderer", function () {
   let output = "";
 
@@ -21,84 +23,154 @@ describe("simple renderer", function () {
       tokenHandlers: "./test/fixtures/token-handler",
       routeOptions: {}
     });
+    renderer.initializeRenderer(true);
+
     expect(renderer._tokens[0].str).to.equal("<html>\n\n<head>");
     expect(renderer._tokens[1].id).to.equal("ssr-content");
     expect(renderer._tokens[2].isModule).to.be.false;
+  });
+  it("should parse template multi line tokens with props", () => {
+    const htmlFile = Path.join(__dirname, "../data/template3.html");
 
-    let intercept;
+    intercept = xstdout.intercept(silentIntercept);
 
-    afterEach(() => {
-      if (intercept) {
-        intercept.restore();
-      }
-      intercept = undefined;
+    const asyncTemplate = new AsyncTemplate({
+      htmlFile,
+      tokenHandlers: "./test/fixtures/token-handler"
     });
+    asyncTemplate.initializeRenderer();
+    intercept.restore();
+
     const expected = [
-      { str: "<html>\n\n<head>" },
+      {
+        str: "<html>\n\n<head>"
+      },
       {
         id: "ssr-content",
         isModule: false,
         pos: 17,
+        props: {
+          attr: ["1", "2", "3"],
+          args: ["a", "b", "c"],
+          empty: "",
+          foo: "bar a [b] c",
+          hello: "world",
+          test: true
+        },
         custom: undefined,
-        wantsNext: undefined,
-        props: {}
-      },
-      {
-        id: "webapp-header-bundles",
-        isModule: false,
-        pos: 41,
-        custom: undefined,
-        wantsNext: undefined,
-        props: {}
-      },
-      {
-        id: "webapp-body-bundles",
-        isModule: false,
-        pos: 75,
-        custom: undefined,
-        wantsNext: undefined,
-        props: {}
-      },
-      {
-        id: "page-title",
-        isModule: false,
-        pos: 107,
-        custom: undefined,
-        wantsNext: undefined,
-        props: {}
+        wantsNext: undefined
       },
       {
         id: "prefetch-bundles",
         isModule: false,
-        pos: 130,
+        pos: 148,
+        props: {},
         custom: undefined,
-        wantsNext: undefined,
-        props: {}
+        wantsNext: undefined
       },
-      { str: `<script>\n    console.log("test")\n  </script>` },
+      {
+        str: `<script>\n    console.log("test")`
+      },
+      {
+        id: "blah",
+        isModule: false,
+        pos: 222,
+        props: {},
+        custom: undefined,
+        wantsNext: undefined
+      },
+      {
+        str: "</script>"
+      },
       {
         id: "meta-tags",
         isModule: false,
-        pos: 206,
+        pos: 264,
+        props: {},
         custom: undefined,
-        wantsNext: undefined,
-        props: {}
+        wantsNext: undefined
+      },
+
+      {
+        str: "</head>\n\n</html>"
       },
       {
-        id: "#critical-css",
-        isModule: true,
-        modPath: "critical-css",
-        pos: 228,
+        id: "page-title",
+        isModule: false,
+        pos: 301,
+        props: {},
         custom: undefined,
-        wantsNext: false,
-        props: {}
+        wantsNext: undefined
       },
-      { str: "</head>\n\n</html>" }
+      {
+        custom: undefined,
+        id: "json-prop",
+        isModule: false,
+        pos: 326,
+        props: {
+          foo: "bar",
+          test: [1, 2, 3]
+        },
+        wantsNext: undefined
+      },
+      {
+        custom: undefined,
+        id: "space-tags",
+        isModule: false,
+        pos: 396,
+        props: {},
+        wantsNext: undefined
+      },
+      {
+        custom: undefined,
+        id: "new-line-tags",
+        isModule: false,
+        pos: 421,
+        props: {},
+        wantsNext: undefined
+      },
+      {
+        custom: undefined,
+        id: "space-newline-tag",
+        isModule: false,
+        pos: 456,
+        props: {
+          attr1: "hello",
+          attr2: "world",
+          attr3: "foo"
+        },
+        wantsNext: undefined
+      },
+      {
+        _modCall: ["setup"],
+        custom: {
+          name: "custom-call"
+        },
+        id: `require("../fixtures/custom-call")`,
+        isModule: true,
+        modPath: "../fixtures/custom-call",
+        pos: 536,
+        props: {
+          _call: "setup"
+        },
+        wantsNext: false
+      }
     ];
-    const criticalCssToken = renderer._tokens[8];
-    expect(criticalCssToken.custom.process()).to.equal(
-      `\ntoken process module critical-css not found\n`
+    expect(typeof _.last(asyncTemplate.tokens).custom.process).to.equal("function");
+    delete _.last(asyncTemplate.tokens).custom.process;
+    expect(asyncTemplate.tokens).to.deep.equal(expected);
+  });
+
+  it("should throw for token with invalid props", () => {
+    const htmlFile = Path.join(__dirname, "../data/template4.html");
+    expect(
+      () =>
+        new SimpleRenderer({
+          htmlFile,
+          tokenHandlers: "./test/fixtures/token-handler"
+        })
+    ).to.throw(
+      `at line 9 col 3 - 'prefetch-bundles bad-prop' has malformed prop: name must be name=Val;`
     );
-    expect(renderer.tokens).to.deep.equal(expected);
   });
 });
