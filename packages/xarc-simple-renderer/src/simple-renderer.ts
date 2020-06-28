@@ -11,15 +11,11 @@ import {
 } from "@xarc/render-context";
 import { resolvePath } from "./utils";
 import stringArray from "string-array";
-import _ from "lodash";
+import * as _ from "lodash";
 import * as Path from "path";
-import { makeDefer, each, Defer } from "xaa";
+import * as Promise from "bluebird";
 import { RenderProcessor } from "./render-processor";
-declare interface PromiseConstructor {
-  allSettled(
-    promises: Array<Promise<any>>
-  ): Promise<Array<{ status: "fulfilled" | "rejected"; value?: any; reason?: any }>>;
-}
+
 const tokenTags = {
   "<!--%{": {
     // for tokens in html
@@ -51,12 +47,14 @@ export class SimpleRenderer {
    */
   _options: any;
   _tokenHandlers: any;
-  _handlersMap: Record<string, any>;
-  _handlerContext: RenderContext;
-  _renderer: RenderProcessor;
-  _tokens: TokenModule[];
+  _handlersMap: any;
+  _handlerContext: any;
+  _renderer: any;
+  _tokens: any;
+  private _beforeRenders: any;
+  private _afterRenders: any;
 
-  constructor(options) {
+  constructor(options: any) {
     this._options = options;
     this._tokenHandlers = [].concat(this._options.tokenHandlers).filter(x => x);
     this._handlersMap = {};
@@ -93,49 +91,25 @@ export class SimpleRenderer {
     return this._handlersMap;
   }
 
-  async render(options) {
-    const context = new RenderContext(options, this);
+  render(options) {
+    const { context } = options;
+
+    // static each<R>(
+    //   values: Resolvable<Iterable<Resolvable<R>>>,
+    //   iterator: IterateFunction<R, any>
+    // ): Bluebird<R[]>;
+
     return Promise.each(this._beforeRenders, r => r.beforeRender(context))
-        .then(() => {
+      .then(() => {
         return this._renderer.render(context);
-    })
-        .then(result => {
+      })
+      .then(result => {
         return Promise.each(this._afterRenders, r => r.afterRender(context)).then(() => {
-            context.result = context.isVoidStop ? context.voidResult : result;
-            return context;
+          context.result = context.isVoidStop ? context.voidResult : result;
+
+          return context;
         });
-    });
-  }
-    // const defer = makeDefer();
-    // const context = options.context; //new RenderContext(options, this);
-    // return Promise.all(this._beforeRenders, (r: { beforeRender: (arg0: any) => any }) =>
-    //   r.beforeRender(context)
-    // )
-    //   .then(() => {
-    //     return this._renderer.render(context);
-    //   })
-    // .then(result => {
-    //   return Promise.all(this._afterRenders, (r: { afterRender: (arg0: any) => any }) =>
-    //     r.afterRender(context)
-    //   ).then(() => {
-    //     context.result = context.isVoidStop ? context.voidResult : result;
-
-    //     return context;
-    //   });
-    // });
-  }
-
-  _beforeRenders(_beforeRenders: any, arg1: (r: any) => any) {
-    throw new Error("Method not implemented.");
-  }
-  _render(_template: any, context: RenderContext, arg2: number, defer: Defer<unknown>) {
-    throw new Error("Method not implemented.");
-  }
-  _template(_template: any, context: RenderContext, arg2: number, defer: Defer<unknown>) {
-    throw new Error("Method not implemented.");
-  }
-  _afterRenders(_afterRenders: any, arg1: (r: any) => any) {
-    throw new Error("Method not implemented.");
+      });
   }
 
   _findTokenIndex(id, str, index, instance = 0, msg = "AsyncTemplate._findTokenIndex") {
@@ -157,7 +131,6 @@ export class SimpleRenderer {
 
     return found[instance].index;
   }
-
   //
   // add tokens at first|last   position of the tokens,
   // or add tokens before|after token at {id}[instance] or {index}
@@ -222,7 +195,7 @@ export class SimpleRenderer {
   //   - if {remove} is invalid
   //
   removeTokens({ remove = "after", removeSelf = true, id, str, index, instance = 0, count = 1 }) {
-    assert(count > 0, `AsyncTemplate.removeTokens: count ${count} must be > 0`);
+    // assert(count > 0, `AsyncTemplate.removeTokens: count ${count} must be > 0`);
 
     index = this._findTokenIndex(id, str, index, instance, "AsyncTemplate.removeTokens");
     if (index === false) return false;
@@ -275,7 +248,7 @@ export class SimpleRenderer {
 
     for (let index = 0; index < this._tokens.length && found.length < count; index++) {
       const token = this._tokens[index];
-      if (token.hasOwnProperty("str") && match(token["str"])) {
+      if (token.hasOwnProperty.str && match(token.str)) {
         found.push({ index, token });
       }
     }
@@ -455,6 +428,3 @@ export class SimpleRenderer {
     this._afterRenders = this._tokenHandlers.filter(x => x.afterRender);
   }
 }
-
-module.exports = SimpleRenderer;
-

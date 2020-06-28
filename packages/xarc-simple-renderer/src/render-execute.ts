@@ -1,5 +1,3 @@
-"use strict";
-
 /* eslint-disable complexity */
 
 import { TOKEN_HANDLER } from "@xarc/render-context";

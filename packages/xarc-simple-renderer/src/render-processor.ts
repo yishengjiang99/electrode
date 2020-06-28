@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 import renderExecute from "./render-execute";
 
 const {
@@ -72,5 +70,3 @@ export class RenderProcessor {
     return renderExecute.executeRenderSteps(this.renderSteps, context);
   }
 }
-module.exports = RenderProcessor;
-//# sourceMappingURL=srenderer.js.map
