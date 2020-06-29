@@ -2,7 +2,7 @@
   "name": "@xarc/simple-renderer",
   "version": "1.0.0",
   "description": "Render index.htm from simple string token based template",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "clap -n build docs && clap check",
