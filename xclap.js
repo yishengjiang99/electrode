@@ -139,7 +139,8 @@ const testGenerator = (testDir, name, clean, runTest, prompts) => {
 xclap.load({
   ".lerna.coverage":
     "~$lerna run --ignore ignite-core --ignore electrode-ignite --ignore generator-electrode --stream coverage",
-  bootstrap: "~$fynpo --ignore ignite-core electrode-ignite generator-electrode",
+  bootstrap:
+    "~$fynpo --ignore ignite-core electrode-ignite generator-electrode electrode-ui-config",
   test: ["bootstrap", ".lerna.coverage", "build-test"],
   "test-generator": [".test-generator --all"],
   "test-create-app": [".test-create-app"],
@@ -189,20 +190,6 @@ xclap.load({
         });
     }
   },
-  "xarc-build": () => {
-    [
-      "xarc-render-context",
-      "xarc-jsx-renderer",
-      "xarc-tag-renderer",
-      "xarc-index-page",
-      "subapp-server",
-      "subapp-web",
-      "subapp-react"
-    ].forEach(pkg => {
-      console.log("installing " + pkg);
-      `~$cd ${Path.join(__dirname, "packages", pkg)} && fyn && npm run build && cd ../..`;
-    });
-  },
   ".xarc-clean-build": () => {
     [
       "xarc-render-context",
@@ -222,9 +209,11 @@ xclap.load({
     });
   },
   ".clear-ports": () => {
-    return exec("lsof -iTCP -sTCP:LISTEN -P -n |grep '2992|3000|3100' |xargs kill -9");
+    return exec(
+      `lsof -iTCP -sTCP:LISTEN -P -n |grep '2992\|3000\|3100' |awk '{print $2}' | xargs kill -9`
+    );
   },
-  ".run-sample": {
+  "run-sample": {
     desc: "compile and run a sample",
     dep: [".xarc-clean-build", ".clear-ports"],
     task: () => {
