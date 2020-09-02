@@ -1580,10 +1580,10 @@
    '@webassemblyjs/wast-parser': 1.9.0
    '@xtuc/long': 4.2.2
 '@xarc/app':
- _latest: 8.1.10-fynlocal_h
+ _latest: 8.1.11-fynlocal_h
  _:
-  ../../packages/xarc-app: 8.1.10-fynlocal_h
- 8.1.10-fynlocal_h:
+  ../../packages/xarc-app: 8.1.11-fynlocal_h
+ 8.1.11-fynlocal_h:
   top: 1
   $: local
   _: ../../packages/xarc-app
@@ -1595,13 +1595,13 @@
    optional-require: ^1.0.0
    subapp-util: ^1.1.1
 '@xarc/app-dev':
- _latest: 8.1.10-fynlocal_h
+ _latest: 8.1.11-fynlocal_h
  _:
-  ../../packages/xarc-app-dev: 8.1.10-fynlocal_h
-  ^8.1.11: 8.1.11
- 8.1.11:
-  $: sha512-uYqSU/mdiFNQJUuA7FxQN4EAaAOE4WXSWWymfwBBmxjhwTSJIh892E6f0Q4NH6ZnJzIqLTcfahG7m3gwgzsbYg==
-  _: 'https://registry.npmjs.org/@xarc/app-dev/-/app-dev-8.1.11.tgz'
+  ../../packages/xarc-app-dev: 8.1.11-fynlocal_h
+ 8.1.11-fynlocal_h:
+  top: 1
+  $: local
+  _: ../../packages/xarc-app-dev
   dependencies:
    '@babel/cli': ^7.1.5
    '@babel/core': ^7.1.6
@@ -1655,75 +1655,6 @@
    subapp-util: ^1.1.1
    sudo-prompt: ^8.2.5
    visual-logger: ^1.1.3
-   webpack-cli: ^3.3.9
-   webpack-dev-middleware: ^3.7.2
-   webpack-hot-middleware: ^2.25.0
-   winston: ^2.4.4
-   xaa: ^1.6.0
-   xclap: ^0.2.53
-   xenv-config: ^1.3.1
-   xsh: ^0.4.5
-  peerDependencies:
-   '@xarc/app': ^8.0.21
- 8.1.10-fynlocal_h:
-  top: 1
-  $: local
-  _: ../../packages/xarc-app-dev
-  dependencies:
-   '@babel/cli': ^7.1.5
-   '@babel/core': ^7.1.6
-   '@babel/plugin-proposal-class-properties': ^7.2.1
-   '@babel/plugin-proposal-decorators': ^7.4.4
-   '@babel/plugin-proposal-object-rest-spread': ^7.0.0
-   '@babel/plugin-syntax-dynamic-import': ^7.2.0
-   '@babel/plugin-transform-react-constant-elements': ^7.0.0
-   '@babel/plugin-transform-react-inline-elements': ^7.0.0
-   '@babel/plugin-transform-runtime': ^7.1.0
-   '@babel/preset-env': ^7.1.6
-   '@babel/preset-react': ^7.0.0
-   '@babel/register': ^7.0.0
-   '@jchip/redbird': ^1.1.2
-   '@loadable/babel-plugin': ^5.10.0
-   '@xarc/app-dev': ^8.1.11
-   '@xarc/webpack': ^8.1.1
-   ansi-to-html: ^0.6.8
-   babel-plugin-dynamic-import-node: ^2.2.0
-   babel-plugin-lodash: ^3.3.4
-   babel-plugin-minify-dead-code-elimination: ^0.5.0
-   babel-plugin-transform-node-env-inline: ^0.4.3
-   babel-plugin-transform-react-remove-prop-types: ^0.4.20
-   boxen: ^4.2.0
-   chalker: ^1.2.0
-   chokidar: ^3.4.1
-   core-js: ^3.6.5
-   electrode-hapi-compat: ^1.3.3
-   electrode-node-resolver: ^2.0.0
-   filter-scan-dir: ^1.0.10
-   fs-extra: ^9.0.1
-   identity-obj-proxy: ^3.0.0
-   is-ci: ^2.0.0
-   isomorphic-loader: ^3.1.0
-   lodash: ^4.17.19
-   log-update: ^4.0.0
-   mime: ^2.4.6
-   mkdirp: ^1.0.4
-   nix-clap: ^1.3.12
-   nyc: ^15.1.0
-   optional-require: ^1.0.2
-   pkg-up: ^3.1.0
-   prompts: ^2.3.2
-   ps-get: ^1.1.0
-   read-pkg-up: ^7.0.1
-   regenerator-runtime: ^0.13.7
-   request: ^2.88.2
-   require-at: ^1.0.4
-   semver: ^7.3.2
-   serve-index-fs: ^1.10.1
-   style-loader: ^1.2.1
-   subapp-util: ^1.1.1
-   sudo-prompt: ^8.2.5
-   visual-logger: ^1.1.3
-   webpack-cli: ^3.3.9
    webpack-dev-middleware: ^3.7.2
    webpack-hot-middleware: ^2.25.0
    winston: ^2.4.4
@@ -1817,13 +1748,12 @@
   dependencies:
    '@xarc/render-context': ^1.0.0
 '@xarc/webpack':
- _latest: 8.1.1-fynlocal_h
+ _latest: 8.1.2-fynlocal_h
  _:
-  ../xarc-webpack: 8.1.1-fynlocal_h
-  ^8.1.2: 8.1.2
- 8.1.2:
-  $: sha512-rJECUcxuyaXp8u65Id83DNB4kFTRazES5gxyiOhszdDHLHxiTgx9PvNcX5VSYmjUw+YCq3+Rg/ThhQqUfn3Egg==
-  _: 'https://registry.npmjs.org/@xarc/webpack/-/webpack-8.1.2.tgz'
+  ../xarc-webpack: 8.1.2-fynlocal_h
+ 8.1.2-fynlocal_h:
+  $: local
+  _: ../../packages/xarc-webpack
   dependencies:
    '@loadable/webpack-plugin': ^5.7.1
    autoprefixer: ^9.6.0
@@ -1844,35 +1774,7 @@
    require-at: ^1.0.4
    url-loader: ^4.1.0
    webpack: ^4.43.0
-   webpack-config-composer: ^1.1.3
-   webpack-stats-plugin: ^0.3.1
-   xsh: ^0.4.5
-  peerDependencies:
-   '@xarc/app': ^8.0.0
-   '@xarc/app-dev': ^8.0.0
- 8.1.1-fynlocal_h:
-  $: local
-  _: ../../packages/xarc-webpack
-  dependencies:
-   '@loadable/webpack-plugin': ^5.7.1
-   autoprefixer: ^9.6.0
-   babel-loader: ^8.1.0
-   chalk: ^4.1.0
-   chalker: ^1.2.0
-   css-loader: ^1.0.1
-   electrode-cdn-file-loader: ^1.0.0
-   electrode-node-resolver: ^2.0.0
-   file-loader: ^2.0.0
-   filter-scan-dir: ^1.0.9
-   isomorphic-loader: ^3.1.0
-   lodash: ^4.17.19
-   mini-css-extract-plugin: ^0.9.0
-   mkdirp: ^1.0.3
-   optimize-css-assets-webpack-plugin: ^5.0.1
-   optional-require: ^1.0.2
-   require-at: ^1.0.4
-   url-loader: ^4.1.0
-   webpack: ^4.43.0
+   webpack-cli: ^3.3.9
    webpack-config-composer: ^1.1.3
    webpack-stats-plugin: ^0.3.1
    xsh: ^0.4.5
@@ -3651,7 +3553,7 @@ ecc-jsbn:
 electrode-cdn-file-loader:
  _latest: 1.1.1-fynlocal_h
  _:
-  '../electrode-cdn-file-loader,^1.0.0': 1.1.1-fynlocal_h
+  ../electrode-cdn-file-loader: 1.1.1-fynlocal_h
  1.1.1-fynlocal_h:
   $: local
   _: ../../packages/electrode-cdn-file-loader
@@ -3676,16 +3578,10 @@ electrode-hapi-compat:
   $: sha512-cvpUs0csNP5NI4V3w6wbApUTRDlFb2gV11pjTmuDHc86QKQJb6YOhYHb9wT2Cp4+5bJost7p1jtCgz7m4TY1LA==
   _: 'https://registry.npmjs.org/electrode-hapi-compat/-/electrode-hapi-compat-1.3.3.tgz'
 electrode-node-resolver:
- _latest: 2.0.0-fynlocal_h
+ _latest: 2.0.1-fynlocal_h
  _:
-  ../electrode-node-resolver: 2.0.0-fynlocal_h
-  ^2.0.1: 2.0.1
- 2.0.1:
-  $: sha512-h0nmkP44o9MiUEF8trqNlyeE20gq5/+qvJCGXSm4iwn6pcINuiK486+fAAwbmM/w2m9ts6AhMaant16cBnC8VA==
-  _: 'https://registry.npmjs.org/electrode-node-resolver/-/electrode-node-resolver-2.0.1.tgz'
-  dependencies:
-   require-at: ^1.0.0
- 2.0.0-fynlocal_h:
+  ../electrode-node-resolver: 2.0.1-fynlocal_h
+ 2.0.1-fynlocal_h:
   $: local
   _: ../../packages/electrode-node-resolver
   dependencies:
@@ -8494,7 +8390,7 @@ subapp-server:
 subapp-util:
  _latest: 1.1.1-fynlocal_h
  _:
-  '../subapp-util,^1.1.1': 1.1.1-fynlocal_h
+  ../subapp-util: 1.1.1-fynlocal_h
  1.1.1-fynlocal_h:
   $: local
   _: ../../packages/subapp-util
@@ -9159,7 +9055,7 @@ webpack-cli:
 webpack-config-composer:
  _latest: 1.1.3-fynlocal_h
  _:
-  '../webpack-config-composer,^1.1.3': 1.1.3-fynlocal_h
+  ../webpack-config-composer: 1.1.3-fynlocal_h
  1.1.3-fynlocal_h:
   $: local
   _: ../../packages/webpack-config-composer
