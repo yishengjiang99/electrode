@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-export {};
+import { AppDevArchetype, defaultArchetypeOptions } from "./app-dev-archetype";
 
 /* eslint-disable object-shorthand, max-statements, no-magic-numbers */
 /* eslint-disable no-console, no-process-exit, global-require, no-param-reassign */
@@ -28,16 +28,29 @@ const xsh = require("xsh");
 require("../typedef");
 
 /**
+ * Get the webpack's CLI command from @xarc/webpack
+ *
+ * @returns webpack's CLI command
+ */
+function webpackCmd() {
+  const cmd = "xarc-webpack-cli";
+  // This command comes from my dependency @xarc/webpack, so the package manager should either
+  // installed it in my node_modules /.bin or hoisted it to the top level node_modules/.bin
+  const exactCmd = Path.join(__dirname, "..", "node_modules", ".bin", cmd);
+  return Fs.existsSync(exactCmd) ? Path.relative(process.cwd(), exactCmd) : cmd;
+}
+
+/**
  * @param {object} xclap xclap task runner
  * @param {CreateXarcOptions} [userXarcOptions] user provided options to configure archetype generation
  * @returns {undefined} void
  */
-module.exports = function loadArchetype(xclap, userXarcOptions) {
-  const xarcOptions = getXarcOptions(userXarcOptions);
-  // lazy require modules that have effects so as to permit customization
-  // from userspace, i.e. `userOptions`
+module.exports = function loadArchetype(xclap, devArchetype: AppDevArchetype) {
+  const xarcOptions = getXarcOptions({ ...defaultArchetypeOptions, ...devArchetype });
+  // // lazy require modules that have effects so as to permit customization
+  // // from userspace, i.e. `userOptions`
   const archetype = getArchetype(xarcOptions);
-  const features = xarcOptions.enableFeatures ? require("./features") : undefined;
+  const features = xarcOptions.enableFeatures ? require("./features").displayFeatures : undefined;
 
   const assertNoGulpExecution = () => {
     const cli = process.argv[1];
@@ -461,7 +474,7 @@ module.exports = function loadArchetype(xclap, userXarcOptions) {
         setProductionEnv();
         setWebpackProfile("browsercoverage");
         return exec(
-          `webpack`,
+          `${webpackCmd()}`,
           `--config`,
           quote(getWebpackStartConfig("webpack.config.browsercoverage.js")),
           `--colors`
@@ -506,7 +519,7 @@ module.exports = function loadArchetype(xclap, userXarcOptions) {
         task: function() {
           setWebpackProfile("static");
           return mkCmd(
-            `~$webpack --config`,
+            `~$${webpackCmd()} --config`,
             quote(getWebpackStartConfig("webpack.config.dev.static.js")),
             `--colors`,
             `--display-error-details`
@@ -539,7 +552,7 @@ module.exports = function loadArchetype(xclap, userXarcOptions) {
           babelEnvTargetsArr.map((name, index) =>
             xclap2.exec(
               [
-                `webpack --config`,
+                `${webpackCmd()} --config`,
                 quote(getWebpackStartConfig("webpack.config.js")),
                 `--colors --display-error-details`
               ],
@@ -1017,7 +1030,7 @@ module.exports = function loadArchetype(xclap, userXarcOptions) {
           task: () => {
             setWebpackProfile("dll");
             return exec(
-              `webpack --config`,
+              `${webpackCmd()} --config`,
               quote(getWebpackStartConfig("webpack.config.dll.js")),
               `--colors`,
               `--display-error-details`
