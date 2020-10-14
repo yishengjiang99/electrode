@@ -8,8 +8,9 @@ module.exports = (base, merge) => {
     homepage: "",
     scripts: {
       dev: "clap -q dev",
-      test: "clap check",
-      build: "clap build",
+      test: "echo 'ok'",
+      "cp-static": "shx cp -r static/ dist/static/",
+      build: "clap -n -s electrode/build cp-static",
       start: "node lib/server"
     },
     author: {
@@ -30,18 +31,19 @@ module.exports = (base, merge) => {
       npm: ">= 6"
     },
     dependencies: {
-      "@xarc/app": "^8.1.8",
+      "@xarc/app": "^8.1.16",
       "@xarc/fastify-server": "^2.0.0",
-      react: "^16.13.1",
       "react-dom": "^16.13.1",
-      redux: "^4.0.5",
       "react-redux": "^7.2.0",
       "subapp-react": "^0.0.23",
       "subapp-redux": "^1.0.32",
-      "subapp-server": "^1.3.1"
+      "subapp-server": "^1.3.1",
+      react: "^16.13.1",
+      redux: "^4.0.5",
+      shx: "^0.3.2"
     },
     devDependencies: {
-      "@xarc/app-dev": "^8.1.8"
+      "@xarc/app-dev": "^8.1.16"
     }
   };
 

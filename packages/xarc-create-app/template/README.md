@@ -1,6 +1,6 @@
-# my-x-app
+# my-app
 
-Welcome to your web application using Electrode X.
+Welcome to your Electrode application.
 
 ## Development
 
@@ -37,6 +37,12 @@ Some initial things to do and try:
 7. Create a repo and push your app to <https://www.github.com>, and update `repository` in `package.json`.
 
 8. Contribute to the [Electrode Platform](https://github.com/electrode-io/electrode/blob/master/CONTRIBUTING.md).
+
+## Optional features
+
+1. type `xrun features` or `node -e 'require("@xarc/app-dev/lib/features").displayFeatures()'`.
+2. Select wanted optional features, use `up` or `down` arrows to navigate the selection menu, `[space]` bar to select unselect.
+3. presss '[enter]' to install and pre-configure optional features.
 
 ## Resources
 
