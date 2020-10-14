@@ -7,7 +7,7 @@ const Fs = require("fs");
 let loaded;
 
 export function loadXarcOptions(dir: string = process.cwd()) {
-  if (loaded) {
+  if (loaded && !loaded.error) {
     return loaded;
   }
   dir = dir || process.cwd();
@@ -29,6 +29,7 @@ Please run "clap setup-dev" once to initialize the file
 xarc's development code.
 `);
     return (loaded = {
+      error: err,
       webpack: {},
       babel: {},
       options: {}
