@@ -8,24 +8,13 @@ const style = { padding: "5px", border: "solid", marginLeft: "15%", marginRight:
 
 const Demo1: React.Component = (props: Demo1Props): React.Component => {
   return (
-    <p style={style}>subapp demo1 </p>
+    <div>
+      <p style={style}>subapp demo1 props: {JSON.stringify(props)} </p>
+      <p>
+        <a href="https://www.electrode.io/" > Electrode Docs </a>  </p>
+    </div>
   );
-
 };
-
-
-
-//   <p>subapp demo1 < /p>
-// props: { JSON.stringify(props) }
-// <p>
-//   <a href="https://wmlink.wal-mart.com/electrode" > Electrode Docs < /a>
-//     < /p>
-//     < /div>
-//   );
-// };
-
-
-
 export default loadSubApp({
   Component: Demo1,
   name: "Demo1",

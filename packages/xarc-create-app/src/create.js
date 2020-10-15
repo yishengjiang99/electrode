@@ -27,7 +27,9 @@ async function create() {
   sortDeps(pkg);
 
   Fs.writeFileSync(Path.resolve("package.json"), `${JSON.stringify(pkg, null, 2)}\n`);
-  shcmd.cp(Path.join(srcDir, "xrun-tasks.ts"), process.cwd());
+
+  shcmd.cp(Path.join(srcDir, "xclap.ts"), process.cwd());
+
   // shcmd.cp("-R", Path.join(srcDir, "archetype"), process.cwd());
   shcmd.cp("-R", Path.join(srcDir, "src"), process.cwd());
   shcmd.cp("-R", Path.join(srcDir, "static"), process.cwd());
