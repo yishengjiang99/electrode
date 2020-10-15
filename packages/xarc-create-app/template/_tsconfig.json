@@ -1,0 +1,26 @@
+{
+	"compilerOptions": {
+		"baseUrl": ".",
+		"outDir": "lib",
+		"module": "esnext",
+		"target": "es5",
+		"lib": [
+			"node",
+			"es6",
+			"dom",
+			"esnext.asynciterable"
+		],
+		"sourceMap": true,
+		"allowJs": true,
+		"jsx": "react",
+		"moduleResolution": "node",
+		"rootDir": "src"
+	},
+	"exclude": [
+		"lib",
+		"node_modules",
+		"build",
+		"config",
+		"xrun-tasks.ts"
+	]
+}
